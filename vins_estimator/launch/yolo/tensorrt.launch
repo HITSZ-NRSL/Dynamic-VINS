@@ -1,0 +1,7 @@
+<launch>
+    <node name="yolo_trt_ros" pkg="yolo_ros" type="yolo_trt_ros.py" output="screen">
+        <remap from="~image_topic" to="/d400/color/image_raw" />
+        <param name="~publish_rate" value="50" />
+        <param name="~visualization" value="False" />
+    </node>
+</launch>

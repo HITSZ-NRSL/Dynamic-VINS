@@ -1,0 +1,5 @@
+<launch>
+    <remap from="/camera/color/image_raw" to="/d400/color/image_raw" />
+    <!-- <remap from="/camera/color/image_raw" to="/camera/rgb/image_color" /> -->
+    <include file="$(find yolo_ros)/launch/yolo_service.launch"></include>
+</launch>

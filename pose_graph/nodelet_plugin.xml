@@ -1,0 +1,8 @@
+<library path="lib/libpose_graph_nodelet">
+    <class name="pose_graph/PoseGraphNodelet" type="pose_graph_nodelet_ns::PoseGraphNodelet"
+           base_class_type="nodelet::Nodelet">
+        <description>
+            PoseGraphNodelet
+        </description>
+    </class>
+</library>

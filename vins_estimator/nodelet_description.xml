@@ -1,0 +1,5 @@
+<library path="lib/libestimator_nodelet">
+    <class  name="vins_estimator/EstimatorNodelet" type="estimator_nodelet_ns::EstimatorNodelet"  base_class_type="nodelet::Nodelet">
+        <description>EstimatorNodelet</description>
+    </class>
+</library>

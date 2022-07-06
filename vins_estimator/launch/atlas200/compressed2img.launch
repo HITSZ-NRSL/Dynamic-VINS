@@ -1,0 +1,11 @@
+<launch>
+    <arg name="manager_name" default="nodelet_manager" />
+    <node pkg="nodelet" type="nodelet" name="$(arg manager_name)" args="manager" output="screen" />
+
+    <node pkg="nodelet" type="nodelet" name="Compressedimg2ImgNodelet" args="load compressedimg2img/Compressedimg2ImgNodelet $(arg manager_name)" output="screen">
+        <remap from="/camera/color/image_raw/compressed" to="/camera/rgb/image_color/compressed" />
+        <remap from="/camera/aligned_depth_to_color/image_raw/compressedDepth" to="/camera/depth/image/compressedDepth" />
+        <!-- <remap from="/camera/color/image_raw/compressed" to="/d400/color/image_raw/compressed"/>
+        <remap from="/camera/aligned_depth_to_color/image_raw/compressedDepth" to="/d400/aligned_depth_to_color/image_raw/compressedDepth"/> -->
+    </node>
+</launch>

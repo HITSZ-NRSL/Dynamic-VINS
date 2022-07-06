@@ -1,0 +1,13 @@
+<launch>
+    <arg name="color_topic" default="/d400/color/image_raw" />
+    <!-- <arg name="depth_topic" default="/d400/aligned_depth_to_color/image_raw" /> -->
+    <!-- <arg name="color_topic" default="/camera/rgb/image_color" /> -->
+    <!-- <arg name="depth_topic" default="/camera/depth/image" /> -->
+
+    <node pkg="image_transport" type="republish" name="image_transport_color" args="raw in:=$(arg color_topic) compressed out:=$(arg color_topic)" output="screen"></node>
+    
+    <!-- <node pkg="image_transport" type="republish" name="image_transport_depth" args="raw in:=$(arg depth_topic) compressedDepth out:=$(arg depth_topic)" output="screen"></node> -->
+
+    <!-- <param name="$(arg depth_topic)/compressedDepth/png_level" value="3" /> -->
+
+</launch>

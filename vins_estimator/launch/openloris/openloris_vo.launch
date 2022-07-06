@@ -1,0 +1,24 @@
+<launch>
+    <arg name="config_path" default="$(find vins_estimator)/../config/openloris/openloris_vo.yaml" />
+    <arg name="vins_path" default="$(find vins_estimator)/../config/../" />
+
+    <remap from="/camera/color/image_raw" to="/d400/color/image_raw" />
+    <include file="$(find yolo_ros)/launch/yolo_service.launch"></include>
+
+    <arg name="manager_name" default="nodelet_manager_pc" />
+    <node pkg="nodelet" type="nodelet" name="$(arg manager_name)" args="manager" output="screen" />
+
+    <node pkg="nodelet" type="nodelet" name="EstimatorNodelet" args="load vins_estimator/EstimatorNodelet $(arg manager_name)" output="screen">
+        <param name="config_file" type="string" value="$(arg config_path)" />
+        <param name="vins_folder" type="string" value="$(arg vins_path)" />
+    </node>
+
+    <!-- <node pkg="nodelet" type="nodelet" name="PoseGraphNodelet" args="load pose_graph/PoseGraphNodelet $(arg manager_name)" output="screen">
+        <param name="config_file" type="string" value="$(arg config_path)" />
+        <param name="visualization_shift_x" type="int" value="0" />
+        <param name="visualization_shift_y" type="int" value="0" />
+        <param name="skip_cnt" type="int" value="0" />
+        <param name="skip_dis" type="double" value="0" />
+    </node> -->
+
+</launch>
