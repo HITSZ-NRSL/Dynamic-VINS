@@ -46,6 +46,7 @@ Find how to install Dynamic-VINS and its dependencies here: **[Installation inst
 
 ## 3. Run datasets examples
 
+### 3.1. OpenLORIS
 Download [OpenLORIS](https://shimo.im/docs/HhJj6XHYhdRQ6jjk/read) datasets.
 
 Take [OpenLORIS-cafe](https://drive.google.com/file/d/1lVhp6Z8GxXFCPd8bR9plHFoVZUadYiBZ/view) as examples.
@@ -80,6 +81,21 @@ roslaunch vins_estimator openloris_vio_atlas.launch
 ```
 Running Dynamic-VINS on HUAWEI Atlas200DK requires multile devices communication setting. For specific instructions, please refer to the [MULTIPLE_DEVICES](./doc/MULTIPLE_DEVICES.md). And other kinds of edge devices also could refer to this instruction.
 
+### 3.2. HITSZ & THUSZ Datasets
+
+Please prepare enough space for the datasets.
+- HITSZ(41.0GB x 2)
+- THUSZ(51.3GB x 2)
+
+```bash
+# download datasets
+bash scripts/download_hitsz.sh # bash scripts/download_thusz.sh
+python3 scipts/rosbag_merge_chunk.py Datasets/hitsz_00.bag # python3 scipts/rosbag_merge_chunk.py Datasets/hitsz_00.bag
+# rm ./Datasets/hitsz_*.bag # rm ./Datasets/thusz_*.bag
+roslaunch vins_estimator realsense_vio_campus.launch
+roslaunch vins_estimator vins_rviz.launch
+rosbag play Datasets/hitsz.bag # rosbag play thusz.bag 
+```
 
 ## 4. Configuration
 

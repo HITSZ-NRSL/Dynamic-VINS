@@ -70,10 +70,11 @@ git clone https://github.com/jianhengLiu/yolo_ros.git
 sudo apt install ros-melodic-ros-numpy
 sudo apt install python3-pip
 pip3 install --upgrade pip
-pip3 install rospkg
-pip3 install Cython matplotlib==3.2.2 numpy==1.18.5 Pillow PyYAML==5.4.1 scipy==1.5.4 tensorboard==1.15.0 tqdm==4.58.0 seaborn==0.11.1 pandas thop pycocotools==2.0.2
+# conda create -n dvins python=3.6
+# conda activate dvins
+pip3 install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu113
 # if you are running on xavier, please not directly install torch by pip and refer to `Possible Problems on NVIDIA Jetson AGX Xavier` section
-pip3 install torch==1.7.0 torchvision==0.8.1
+pip3 install -r yolo_ros/requirements.txt
 
 
 # build
