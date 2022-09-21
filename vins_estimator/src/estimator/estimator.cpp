@@ -284,6 +284,10 @@ void Estimator::processImage(map<int, Eigen::Matrix<double, 7, 1>> &image,
                         solver_flag = NON_LINEAR;
                         slideWindow();
                         ROS_INFO("Initialization finish!");
+                        last_R  = Rs[WINDOW_SIZE];
+                        last_P  = Ps[WINDOW_SIZE];
+                        last_R0 = Rs[0];
+                        last_P0 = Ps[0];
                     }
                 }
             }
@@ -2131,6 +2135,7 @@ void Estimator::movingConsistencyCheck(set<int> &removeIndex)
         double depth = it_per_id.estimated_depth;
 
         double   err    = 0;
+        double   err3D  = 0;
         int      errCnt = 0;
         int      imu_i = it_per_id.start_frame, imu_j = imu_i - 1;
         Vector3d pts_i = it_per_id.feature_per_frame[0].point;
@@ -2140,17 +2145,17 @@ void Estimator::movingConsistencyCheck(set<int> &removeIndex)
             if (imu_i != imu_j)
             {
                 Vector3d pts_j = it_per_frame.point;
-                double   tmp_error =
-                    reprojectionError(Rs[imu_i], Ps[imu_i], ric[0], tic[0], Rs[imu_j], Ps[imu_j],
-                                      ric[0], tic[0], depth, pts_i, pts_j);
-                err += tmp_error;
+                err += reprojectionError(Rs[imu_i], Ps[imu_i], ric[0], tic[0], Rs[imu_j], Ps[imu_j],
+                                         ric[0], tic[0], depth, pts_i, pts_j);
+
+                err3D += reprojectionError3D(Rs[imu_i], Ps[imu_i], ric[0], tic[0], Rs[imu_j],
+                                             Ps[imu_j], ric[0], tic[0], depth, pts_i, pts_j);
                 errCnt++;
             }
         }
         if (errCnt > 0)
         {
-            double ave_err = err / errCnt;
-            if (ave_err * FOCAL_LENGTH > 10)
+            if (FOCAL_LENGTH * err / errCnt > 10 || err3D / errCnt > 5)
             {
                 removeIndex.insert(it_per_id.feature_id);
                 it_per_id.is_dynamic = true;

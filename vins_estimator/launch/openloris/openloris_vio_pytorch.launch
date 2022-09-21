@@ -2,9 +2,9 @@
     <arg name="config_path" default="$(find vins_estimator)/../config/openloris/openloris_vio.yaml" />
     <arg name="vins_path" default="$(find vins_estimator)/../config/../" />
 
-    <!-- <remap from="/camera/color/image_raw" to="/d400/color/image_raw" />
+    <remap from="/camera/color/image_raw" to="/d400/color/image_raw" />
     <include file="$(find yolo_ros)/launch/yolo_service.launch">
-    </include> -->
+    </include>
 
     <arg name="manager_name" default="nodelet_manager_pc" />
     <node pkg="nodelet" type="nodelet" name="$(arg manager_name)" args="manager" output="screen" />
