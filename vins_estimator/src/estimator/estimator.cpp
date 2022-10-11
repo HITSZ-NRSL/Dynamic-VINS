@@ -2121,7 +2121,7 @@ double Estimator::reprojectionError3D(Matrix3d &Ri, Vector3d &Pi, Matrix3d &rici
 {
     Vector3d pts_w  = Ri * (rici * (depth * uvi) + tici) + Pi;
     Vector3d pts_cj = ricj.transpose() * (Rj.transpose() * (pts_w - Pj) - ticj);
-    return (pts_cj - uvj).norm();
+    return (pts_cj - uvj).norm() / depth;
 }
 
 void Estimator::movingConsistencyCheck(set<int> &removeIndex)
@@ -2133,6 +2133,8 @@ void Estimator::movingConsistencyCheck(set<int> &removeIndex)
             continue;
 
         double depth = it_per_id.estimated_depth;
+        if (depth < 0)
+            continue;
 
         double   err    = 0;
         double   err3D  = 0;
@@ -2147,7 +2149,7 @@ void Estimator::movingConsistencyCheck(set<int> &removeIndex)
                 Vector3d pts_j = it_per_frame.point;
                 err += reprojectionError(Rs[imu_i], Ps[imu_i], ric[0], tic[0], Rs[imu_j], Ps[imu_j],
                                          ric[0], tic[0], depth, pts_i, pts_j);
-
+                // for bleeding points
                 err3D += reprojectionError3D(Rs[imu_i], Ps[imu_i], ric[0], tic[0], Rs[imu_j],
                                              Ps[imu_j], ric[0], tic[0], depth, pts_i, pts_j);
                 errCnt++;
@@ -2155,7 +2157,7 @@ void Estimator::movingConsistencyCheck(set<int> &removeIndex)
         }
         if (errCnt > 0)
         {
-            if (FOCAL_LENGTH * err / errCnt > 10 || err3D / errCnt > 5)
+            if (FOCAL_LENGTH * err / errCnt > 10 || err3D / errCnt > 2.0)
             {
                 removeIndex.insert(it_per_id.feature_id);
                 it_per_id.is_dynamic = true;
