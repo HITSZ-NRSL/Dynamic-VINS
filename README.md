@@ -8,25 +8,9 @@
 - Grid-based feature detection and efficient high-quality FAST feature extraction.
 - Competitive localization accuracy and robustness in dynamic environments are shown in a real-time application on  resource-restricted platforms, such as [HUAWEI Atlas200 DK](https://e.huawei.com/en/products/cloud-computing-dc/atlas/atlas-200), [NVIDIA Jetson AGX Xavier](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-agx-xavier/).
 
-Authors: [Jianheng Liu](https://github.com/jianhengLiu), Xuanfu Li, [Yueqian Liu](https://github.com/ErcBunny), and [Haoyao Chen](https://github.com/HitszChen)* from the [Networked RObotics and Sytems Lab](http://www.nrs-lab.com), [HITSZ](https://www.hitsz.edu.cn/index.html)
-  
+Authors: [Jianheng Liu](https://github.com/jianhengLiu), Xuanfu Li, [Yueqian Liu](https://github.com/ErcBunny), and [Haoyao Chen](https://github.com/HitszChen) from the [Networked RObotics and Sytems Lab](http://www.nrs-lab.com), [HITSZ](https://www.hitsz.edu.cn/index.html)
 
-### 1.1. Framework
-
-<div align="center"><img src="doc/image/framework.png" width=100% /></div>
-
-### 1.2. Related video:
-
-<div align="center">
-    <a href="https://youtu.be/y0U1IVtFBwY" target="blank">
-    <img src="doc/image/video_cover.png" width=60% />
-    </a>
-</div>
-
-
-**Video links:** [Youtube](https://youtu.be/y0U1IVtFBwY) or [Bilibili](https://www.bilibili.com/video/BV1bF411t7mx).
-
-### 1.3 Paper:
+If you use Dynamic-VINS for your academic research, please cite the following paper.
 ```
 @ARTICLE{9830851,  
   author={Liu, Jianheng and Li, Xuanfu and Liu, Yueqian and Chen, Haoyao},  
@@ -38,6 +22,23 @@ Authors: [Jianheng Liu](https://github.com/jianhengLiu), Xuanfu Li, [Yueqian Liu
   pages={9573-9580},  
   doi={10.1109/LRA.2022.3191193}}
 ```
+  
+
+### 1.1. Framework
+
+<div align="center"><img src="doc/image/framework.png" width=100% /></div>
+
+### 1.2. Related Video:
+
+<div align="center">
+    <a href="https://youtu.be/y0U1IVtFBwY" target="blank">
+    <img src="doc/image/video_cover.png" width=60% />
+    </a>
+</div>
+
+
+**Video links:** [Youtube](https://youtu.be/y0U1IVtFBwY) or [Bilibili](https://www.bilibili.com/video/BV1bF411t7mx).
+
 
 ## 2. Installation
 Tested on Ubuntu 18.04 and 20.04.
