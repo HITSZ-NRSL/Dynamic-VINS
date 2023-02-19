@@ -84,13 +84,14 @@ Running Dynamic-VINS on HUAWEI Atlas200DK requires multile devices communication
 
 ### 3.2. HITSZ & THUSZ Datasets
 
-Please prepare enough space for the datasets.
+Please prepare enough space for the [datasets](https://furtive-lamprey-00b.notion.site/Dynamic-VINS-Datasets-4458bad4d1104697b00410936919327d).
 - HITSZ(41.0GB x 2)
 - THUSZ(51.3GB x 2)
 
+1. download datasets vis [Dyanmic-VINS-Datasets](https://furtive-lamprey-00b.notion.site/Dynamic-VINS-Datasets-4458bad4d1104697b00410936919327d).
+2. run following cmd:
 ```bash
-# download datasets
-bash scripts/download_hitsz.sh # bash scripts/download_thusz.sh
+# bash scripts/download_hitsz.sh # bash scripts/download_thusz.sh
 python3 scipts/rosbag_merge_chunk.py Datasets/hitsz_00.bag # python3 scipts/rosbag_merge_chunk.py Datasets/hitsz_00.bag
 # rm ./Datasets/hitsz_*.bag # rm ./Datasets/thusz_*.bag
 roslaunch vins_estimator realsense_vio_campus.launch
