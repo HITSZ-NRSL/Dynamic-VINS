@@ -10,7 +10,7 @@
 
 Authors: [Jianheng Liu](https://github.com/jianhengLiu), Xuanfu Li, [Yueqian Liu](https://github.com/ErcBunny), and [Haoyao Chen](https://github.com/HitszChen) from the [Networked RObotics and Sytems Lab](http://www.nrs-lab.com), [HITSZ](https://www.hitsz.edu.cn/index.html)
 
-If you use Dynamic-VINS for your academic research, please cite the following [paper](support_files/RGB-D_Inertial_Odometry_for_a_Resource-Restricted_Robot_in_Dynamic_Environments.pdf).
+If you use Dynamic-VINS for your academic research, please cite the following paper [[pdf](https://arxiv.org/pdf/2304.10987.pdf)]. 
 ```
 @ARTICLE{9830851,  
   author={Liu, Jianheng and Li, Xuanfu and Liu, Yueqian and Chen, Haoyao},  

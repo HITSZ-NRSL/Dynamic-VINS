@@ -129,9 +129,6 @@ void FeatureManager::setSemanticMask(int x1, int y1, int x2, int y2, bool is_com
                 x_center - dynamic_objects[temp_object_id].x_center;
             dynamic_objects[temp_object_id].y_vel =
                 y_center - dynamic_objects[temp_object_id].y_center;
-
-            dynamic_objects[temp_object_id].x_weight_vel = dynamic_objects[temp_object_id].x_vel;
-            dynamic_objects[temp_object_id].y_weight_vel = dynamic_objects[temp_object_id].y_vel;
         }
         else
         {
