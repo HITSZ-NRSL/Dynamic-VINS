@@ -106,7 +106,9 @@ void Estimator::clearState()
     drift_correct_r = Matrix3d::Identity();
     drift_correct_t = Vector3d::Zero();
 
-    latest_Q = Eigen::Quaterniond(1, 0, 0, 0);
+    latest_Q     = Eigen::Quaterniond(1, 0, 0, 0);
+    latest_acc_0 = Vector3d::Zero();
+    latest_gyr_0 = Vector3d::Zero();
 
     init_imu = true;
 
@@ -1936,15 +1938,20 @@ void Estimator::updateLatestStates()
     latest_V    = Vs[frame_count];
     latest_Ba   = Bas[frame_count];
     latest_Bg   = Bgs[frame_count];
+    latest_acc_0 = acc_0;
+    latest_gyr_0 = gyr_0;
 
     if (USE_IMU)
     {
         m_imu.lock();
         queue<pair<double, pair<Eigen::Vector3d, Eigen::Vector3d>>> tmp_imu_buf = imu_buf;
-        for (sensor_msgs::ImuConstPtr tmp_imu_msg; !tmp_imu_buf.empty(); tmp_imu_buf.pop())
-            predict(tmp_imu_buf.front().first, imu_buf.front().second.first,
-                    imu_buf.front().second.second);
         m_imu.unlock();
+        while (!tmp_imu_buf.empty())
+        {
+            predict(tmp_imu_buf.front().first, tmp_imu_buf.front().second.first,
+                    tmp_imu_buf.front().second.second);
+            tmp_imu_buf.pop();
+        }
     }
     m_propagate.unlock();
 }
@@ -2026,19 +2033,23 @@ void Estimator::predict(double t, const Vector3d &linearAcceleration,
 {
     if (init_imu)
     {
-        latest_time = t;
-        init_imu    = false;
+        latest_time  = t;
+        latest_acc_0 = linearAcceleration;
+        latest_gyr_0 = angularVelocity;
+        init_imu     = false;
         return;
     }
     double dt                = t - latest_time;
     latest_time              = t;
-    Eigen::Vector3d un_acc_0 = latest_Q * (acc_0 - latest_Ba) - g;
-    Eigen::Vector3d un_gyr   = 0.5 * (gyr_0 + angularVelocity) - latest_Bg;
+    Eigen::Vector3d un_acc_0 = latest_Q * (latest_acc_0 - latest_Ba) - g;
+    Eigen::Vector3d un_gyr   = 0.5 * (latest_gyr_0 + angularVelocity) - latest_Bg;
     latest_Q                 = latest_Q * Utility::deltaQ(un_gyr * dt);
     Eigen::Vector3d un_acc_1 = latest_Q * (linearAcceleration - latest_Ba) - g;
     Eigen::Vector3d un_acc   = 0.5 * (un_acc_0 + un_acc_1);
     latest_P                 = latest_P + dt * latest_V + 0.5 * dt * dt * un_acc;
     latest_V                 = latest_V + dt * un_acc;
+    latest_acc_0             = linearAcceleration;
+    latest_gyr_0             = angularVelocity;
 }
 
 bool Estimator::IMUAvailable(double t)

@@ -199,5 +199,9 @@ public:
     Eigen::Vector3d    latest_V;
     Eigen::Vector3d    latest_Ba;
     Eigen::Vector3d    latest_Bg;
+    // previous IMU sample used by predict(); kept separate from acc_0/gyr_0
+    // (which are owned by the frame-processing thread) as in VINS-Fusion
+    Eigen::Vector3d    latest_acc_0;
+    Eigen::Vector3d    latest_gyr_0;
     bool               initFirstPoseFlag{};
 };
